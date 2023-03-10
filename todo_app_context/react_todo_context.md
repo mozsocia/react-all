@@ -19,7 +19,7 @@ npm install uuid react-router-dom
 
 Next, create a new file `/context/TodoContext.js` in the `src` folder. This file will contain the Context API:
 
-```php
+```js
 import React, { createContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -83,7 +83,7 @@ This Context API has five methods: `addTodo`, `updateTodo`, `deleteTodo`, `toggl
 
 Next, update `App.js` to use the Context API:
 
-```php
+```js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import TodoList from './components/TodoList';
@@ -116,7 +116,7 @@ In this code, we wrapped the `Router` and all of its components in the `TodoCont
 
 Next, create the `TodoList` component, which will display a list of all the ToDo items:
 
-```php
+```js
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { TodoContext } from '../context/TodoContext';
@@ -159,7 +159,7 @@ In this code, we used the `useContext` hook to get access to the `todos` array, 
 
 Next, create the `AddTodo` component, which will allow users to add a new ToDo item:
 
-```php
+```js
 import React, { useState, useContext } from 'react';
 import { useNavigate  } from 'react-router-dom';
 import { TodoContext } from '../context/TodoContext';
@@ -200,7 +200,7 @@ In this code, we used the `useState` hook to manage the input field value, `useC
 
 Finally, create the `EditTodo` component, which will allow users to edit an existing ToDo item:
 
-```php
+```js
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TodoContext } from '../context/TodoContext';
