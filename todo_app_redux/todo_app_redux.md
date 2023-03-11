@@ -22,6 +22,57 @@ export const updateTodo = (id, title, description) =>
 
 ```
 
+
+src\reducers\todoReducer.js
+
+```js
+import { ADD_TODO, DELETE_TODO, UPDATE_TODO } from '../actions/todoActions';
+
+const initialState = {
+  todos: [],
+};
+
+const todoReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_TODO:
+      return {
+        ...state,
+        todos: [
+          ...state.todos,
+          {
+            id: Date.now(),
+            title: action.payload.title,
+            description: action.payload.description,
+          },
+        ],
+      };
+    case DELETE_TODO:
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => todo.id !== action.payload.id),
+      };
+    case UPDATE_TODO:
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo.id === action.payload.id
+            ? {
+                ...todo,
+                title: action.payload.title,
+                description: action.payload.description,
+              }
+            : todo
+        ),
+      };
+    default:
+      return state;
+  }
+};
+
+export default todoReducer;
+
+```
+
 src\components\TodoEditForm.jsx
 ```js
 import { useState } from 'react';
@@ -154,55 +205,7 @@ export default TodoList;
 ```
 
 
-src\reducers\todoReducer.js
 
-```js
-import { ADD_TODO, DELETE_TODO, UPDATE_TODO } from '../actions/todoActions';
-
-const initialState = {
-  todos: [],
-};
-
-const todoReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_TODO:
-      return {
-        ...state,
-        todos: [
-          ...state.todos,
-          {
-            id: Date.now(),
-            title: action.payload.title,
-            description: action.payload.description,
-          },
-        ],
-      };
-    case DELETE_TODO:
-      return {
-        ...state,
-        todos: state.todos.filter((todo) => todo.id !== action.payload.id),
-      };
-    case UPDATE_TODO:
-      return {
-        ...state,
-        todos: state.todos.map((todo) =>
-          todo.id === action.payload.id
-            ? {
-                ...todo,
-                title: action.payload.title,
-                description: action.payload.description,
-              }
-            : todo
-        ),
-      };
-    default:
-      return state;
-  }
-};
-
-export default todoReducer;
-
-```
 src\App.jsx
 ```js
 import TodoList from './components/TodoList';
